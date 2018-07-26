@@ -1,0 +1,15 @@
+{
+  "name": "xls_to_sql",
+  "version": "1.0.0",
+  "description": "importa xls e gera sql",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "William Almeida",
+  "license": "ISC",
+  "dependencies": {
+    "readline-sync": "^1.4.9",
+    "xlsx": "^0.13.3"
+  }
+}

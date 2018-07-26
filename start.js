@@ -1,6 +1,6 @@
 const XLSX = require('xlsx');
 const fs = require('fs');
-var readlineSync = require('readline-sync');
+const readlineSync = require('readline-sync');
 
 var xlData = null;
 var filesInFolder = {};
@@ -13,10 +13,14 @@ var arquivos = fs.readdirSync("./arquivos", function (err, files) {
 
 var listFile = () => {
     console.log('Arquivos XLSX');
+    
     arquivos.map((nome, posicao) => {
         filesInFolder[posicao] = nome;
         console.log(`${posicao} - ${nome}`);
     });
+    if(arquivos.length == 0){
+        throw 'pasta ./arquivos vazia';
+    }
     return '';
 }
 
@@ -25,10 +29,13 @@ var listFile = () => {
 var store_id = readlineSync.question(`Qual Store_ID?`);
 store_id = store_id.toUpperCase();
 var proc = readlineSync.question('Qual procedure? ');
-var position = readlineSync.question(`Escolha um arquivo a ser usado?\n${listFile()} `);
-var xlsx_file = './arquivos/' + filesInFolder[position];
+var position = readlineSync.question(`Escolha um arquivo a ser usado?${listFile()} `);
+if(filesInFolder[position] == undefined){
+    throw 'Opção inválida';
+}
+var xlsx_file = './arquivos/' + filesInFolder[position];    
 var nome_aba = readlineSync.question(`Qual o nome da aba do arquivo ${xlsx_file} ?`);
-var sql_file = readlineSync.question('Qual o nome do arquivo SQL a ser gerado? ');
+var sql_file = readlineSync.question('Qual o nome do arquivo SQL a ser gerado ?');
 console.log(`Store_id: ${store_id}\nProcedure:${proc}\nArquivoXLS: ${xlsx_file}\nAba:${nome_aba}\nArquivoSQL: ${sql_file} ?`);
 var confirmar = readlineSync.question('Deseja confirmar as alterações [S]im, [N]ão ?');
 
